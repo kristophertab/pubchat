@@ -59,6 +59,14 @@ mod test{
     }
 }
 
+fn speaker_add() -> Speaker {
+    let new_speaker = Speaker {
+        _place: Position { x: 0, y: 0 },
+        melody: Sound { vol: 100 },
+    };
+    new_speaker
+}
+
 fn main() {
     println!("Hello, PUB Chat!");
 
@@ -66,10 +74,7 @@ fn main() {
         place: Position { x: 50, y: 50 },
     };
 
-    let speaker1 = Speaker {
-        _place: Position { x: 0, y: 0 },
-        melody: Sound { vol: 100 },
-    };
+    let mut speakers = Vec::<Speaker>::new();
 
     loop {
         let mut line = String::new();
@@ -81,11 +86,14 @@ fn main() {
             "down\n" => you.place.go_down(),
             "left\n" => you.place.go_left(),
             "right\n" => you.place.go_right(),
+            "add_speaker\n" => speakers.push(speaker_add()),
             "quit\n" => break,
             _ => println!("I can't do it."),
         }
 
         println!("Your position: {} {}", you.place.x, you.place.y);
-        println!("Speaker volume: {}", speaker1.melody.vol);
+        for speaker in speakers.iter() {
+            println!("Speaker volume: {}", speaker.melody.vol);
+        }
     }
 }
