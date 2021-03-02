@@ -40,22 +40,25 @@ struct Person {
     place: Position,
 }
 
-pub fn calculate_loudness(s: Position, o: Position) -> Sound{
+pub fn calculate_loudness(s: Position, o: Position) -> Sound {
     let dx: i32 = (o.x as i64 - s.x as i64) as i32;
     let dy: i32 = (o.y as i64 - s.y as i64) as i32;
     let d = ((dx.abs().pow(2) + dy.abs().pow(2)) as f32).sqrt();
-    let v = (100.0 * 1.0/(d.powf(2.0) + 1.0)) as u8;
-    let s: Sound = Sound{ vol: v};
+    let v = (100.0 * 1.0 / (d.powf(2.0) + 1.0)) as u8;
+    let s: Sound = Sound { vol: v };
     s
 }
 
 #[cfg(test)]
-mod test{
+mod test {
     use super::*;
 
     #[test]
-    fn simple_test(){
-        assert_eq!(calculate_loudness(Position{x:0,y:0}, Position{x:1,y:0}).vol, 50);
+    fn simple_test() {
+        assert_eq!(
+            calculate_loudness(Position { x: 0, y: 0 }, Position { x: 1, y: 0 }).vol,
+            50
+        );
     }
 }
 
